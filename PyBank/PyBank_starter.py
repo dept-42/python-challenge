@@ -20,9 +20,9 @@ monthly_net_profit_loss = 0
 previous_profit_loss = 0
 this_profit_loss = 0
 
-monthToMonthChange = 0
-monthToMonthProfit = 0
-monthToMonthLoss = 0
+#monthToMonthChange = 0
+#monthToMonthProfit = 0
+#monthToMonthLoss = 0
 
 greatest_profit_loss = {
     "profit" : {
@@ -43,7 +43,7 @@ day_month = ''
 # nextMonth. In this data, the number of non-header rows equals months, but, that
 # might not alwys be true. This method will coorectly count months even if two
 # reports are made in a single month
-month_count = 0
+#month_count = 0
 previous_month = ''
 this_month = ''
 date = ''
@@ -58,11 +58,11 @@ with open(file_to_load) as financial_data:
     first_row = next(reader)
     date = first_row[0]
     day_month = date.split('-')
-    print(f"day_month: {day_month}")
+    #print(f"day_month: {day_month}")
     previous_month = day_month[0]
-    print(f"previous_month : {previous_month }")
+    #print(f"previous_month : {previous_month }")
     total_months += 1
-    print(f"month_count {month_count}")
+    #print(f"month_count {month_count}")
 
     # Track the total and net change
     previous_profit_loss = int(first_row[1])
@@ -72,17 +72,17 @@ with open(file_to_load) as financial_data:
 
     # takes care of edge case where the first profit or loss happens to be
     # the greatest
-    if previous_profit_loss > 0:
-        greatest_profit_loss["profit"]["date"] = date
-        greatest_profit_loss["profit"]["amount"] = previous_profit_loss
-    elif previous_profit_loss < 0:
-        greatest_profit_loss["loss"]["date"] = date
-        greatest_profit_loss["loss"]["amount"] = previous_profit_loss
-    else:
-        greatest_profit_loss["profit"]["date"] = date
-        greatest_profit_loss["profit"]["amount"] = 0
-        greatest_profit_loss["loss"]["date"] = date
-        greatest_profit_loss["loss"]["amount"] = 0
+    #if previous_profit_loss > 0:
+    #    greatest_profit_loss["profit"]["date"] = date
+    #    greatest_profit_loss["profit"]["amount"] = previous_profit_loss
+    #elif previous_profit_loss < 0:
+     #   greatest_profit_loss["loss"]["date"] = date
+    #    greatest_profit_loss["loss"]["amount"] = previous_profit_loss
+   # else:
+    #    greatest_profit_loss["profit"]["date"] = date
+     #   greatest_profit_loss["profit"]["amount"] = 0
+    #    greatest_profit_loss["loss"]["date"] = date
+    #    greatest_profit_loss["loss"]["amount"] = 0
 
     total_change = previous_profit_loss
     #net_total_change = previous_profit_loss
