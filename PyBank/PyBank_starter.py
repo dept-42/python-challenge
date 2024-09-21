@@ -13,12 +13,10 @@ print(f"cwd: {os.getcwd()}")
 print()
 # Define variables to track the financial data
 total_months = 0
-total_change_plus_and_minus = 0
-net_total_amount = 0
+net_total_profit_and_loss = 0 # sum of prot _ loss for aall months
+net_total_change = 0 # sum of change in P/L from one month to the next
 
 monthly_net_profit_loss = 0
-total_net_profit_loss = 0
-
 previous_profit_loss = 0
 this_profit_loss = 0
 
@@ -87,7 +85,8 @@ with open(file_to_load) as financial_data:
         greatest_profit_loss["loss"]["amount"] = 0
 
     total_change = previous_profit_loss
-    net_total_amount = previous_profit_loss
+    #net_total_change = previous_profit_loss
+    #net_total_amount = previous_profit_loss
     # Process each row of data
     for row in reader:
         date = row[0]
@@ -107,31 +106,45 @@ with open(file_to_load) as financial_data:
         this_profit_loss = int(row[1])
         #this_profit_loss = int(this_profit_loss)
         
-        #adjust 'total_change'
-        total_change += this_profit_loss
+        #adjust 'net_total_profit_and_loss'
+        net_total_profit_and_loss += this_profit_loss
+        
         # calculate 'monthly_net_profit_loss'
         monthly_net_profit_loss = this_profit_loss - previous_profit_loss
-        if monthly_net_profit_loss < 0 :
-            print(f"NEGATIVE!")
-        print(f"monthly_net_profit_loss:  {monthly_net_profit_loss}")
+        
+        # adjust 'net_total_change'
+        net_total_change += monthly_net_profit_loss
+        
+        # update greatest increase/ decrease
+        #if monthly_net_profit_loss < 0 :
+        #    print(f"NEGATIVE!")
+        #print(f"monthly_net_profit_loss:  {monthly_net_profit_loss}")
+
         # adjust net_total_amount
-        print(f"old net_total_amount:  { net_total_amount}")
-        net_total_amount += monthly_net_profit_loss
-        print(f"new net_total_amount:  { net_total_amount}")
+        #print(f"old net_total_amount:  { net_total_amount}")
+        #net_total_amount += monthly_net_profit_loss
+        #print(f"new net_total_amount:  { net_total_amount}")
 
-
+        #### update greatest increase/ decrease
         # Calculate the greatest increase in profits (month and amount) and
         #  the greatest decrease in losses (month and amount)
         # adjust 'greatestMonthToMonthProfit' or 'greatestMonthToMonthLoss'
-        if ( (monthly_net_profit_loss > 0) & (monthly_net_profit_loss > \
-                              greatest_profit_loss["profit"]["amount"]) ):
+        #if ( (monthly_net_profit_loss > 0) & (monthly_net_profit_loss > \
+                             # greatest_profit_loss["profit"]["amount"]) ):
+            #greatest_profit_loss["profit"]["date"] = date
+            #greatest_profit_loss["profit"]["amount"] = monthly_net_profit_loss
+       # elif ( (monthly_net_profit_loss) < 0 & (monthly_net_profit_loss < \
+            #                    greatest_profit_loss["loss"]["amount"]) ):
+            #greatest_profit_loss["loss"]["date"] = date
+            #greatest_profit_loss["loss"]["amount"] = monthly_net_profit_loss
+
+
+        if monthly_net_profit_loss > greatest_profit_loss["profit"]["amount"]:
             greatest_profit_loss["profit"]["date"] = date
             greatest_profit_loss["profit"]["amount"] = monthly_net_profit_loss
-        elif ( (monthly_net_profit_loss) < 0 & (monthly_net_profit_loss < \
-                                greatest_profit_loss["loss"]["amount"]) ):
+        elif monthly_net_profit_loss < greatest_profit_loss["loss"]["amount"]:
             greatest_profit_loss["loss"]["date"] = date
             greatest_profit_loss["loss"]["amount"] = monthly_net_profit_loss
- 
         # up date 'previous_profit_loss'
         previous_profit_loss = this_profit_loss
 
@@ -140,12 +153,12 @@ with open(file_to_load) as financial_data:
 
 # Calculate the average net change across the months
 # total change  / number of months
-print(f"total_change: {total_change}")
-print(f"net_total_amount{net_total_amount}")
+print(f"net_total_profit_and_loss: {net_total_profit_and_loss}")
+#print(f"net_total_amount{net_total_amount}")
 print(f"total months {total_months}")
 
 ## ! NO ????  need to accumulate monthly changes in a list then take the average
-average_profit_loss_change = round(int(net_total_amount) / int(total_months), 3)
+average_profit_loss_change = round(int(net_total_change) / (total_months-1), 2)
 print(f"Average profit loss change: {average_profit_loss_change}")
 
 gpa = greatest_profit_loss["profit"]["amount"]
