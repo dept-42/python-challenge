@@ -13,7 +13,7 @@ print(f"cwd: {os.getcwd()}")
 print()
 
 # Initialize variables to track the election data
-total_votes = 0  # Track the total number of votes cast
+total_votes = 0  
 
 # Define lists and dictionaries to track candidate names and vote counts
 total_votes = 0
@@ -70,32 +70,52 @@ with open(file_to_load) as election_data:
 with open(file_to_output, "w") as txt_file:
 
     # Print the total vote count (to terminal)
-    print(f"Total votes cast: {total_votes}")
+    print(f"\nTotal votes cast: {total_votes}")
     print()
+
     # Write the total vote count to the text file
-
-
-    # Loop through the candidates to determine vote percentages and identify the winner
+    print(f"\nElection Results\n\n{'-'*25}\n", file = txt_file)
+    print(f"Total Votes: {total_votes}\n", file = txt_file)
+   
+    # Loop through the candidates to determine vote percentages and 
+    # identify the winner
     for candidate in candidates:
-        print(f"candidate: {candidate}")
+
         # Get the vote count and calculate the percentage
-        this_candiate_vote_total = election_tracker[candidate][0]
-        this_candidate_percent_vote = calculate_vote_percent(total_votes, this_candiate_vote_total)
-        print(f"this_candidate_percent_vote: {this_candidate_percent_vote}")
-        election_tracker[candidate_name][1] = this_candidate_percent_vote
-       
-        print(f"this_candiate_vote_total: {this_candiate_vote_total}")
-        print(f"best_candidate_vote: {best_candidate_vote}")
+        this_candidate_vote_total = election_tracker[candidate][0]
+        this_candidate_percent_vote = calculate_vote_percent\
+                                      (total_votes, this_candidate_vote_total)
+        
+        election_tracker[candidate][1] = this_candidate_percent_vote
+
         # Update the winning candidate if this one has more votes
-        if this_candiate_vote_total > best_candidate_vote:
+        if this_candidate_vote_total > best_candidate_vote:
             winner = candidate
-            print(f"winner: {winner}")
-            best_candidate_vote = this_candiate_vote_total
+            best_candidate_vote = this_candidate_vote_total
 
-        # Print and save each candidate's vote count and percentage
-
+        # Print to screen and save each candidate's vote count and percentage
+        print(f"{candidate}: {this_candidate_percent_vote}% ({this_candidate_vote_total})\n")
 
     # Generate and print the winning candidate summary
-    print(f"Winner: {winner}")
+    print(f"\n\n\n\n\nSUMMARY\n   --- Election Results ---\n\n{'-'*25}\n")
+    print(f"Total Votes: {total_votes}\n")
+
+    for candidate in candidates:
+        this_candidate_vote_total = election_tracker[candidate][0]
+        this_candidate_percent_vote = election_tracker[candidate][1]
+        print(f"{candidate}: {this_candidate_percent_vote}% ({this_candidate_vote_total})\n")
+    
+    print(f"{'-'*25}\n")
+    print(f"Winner: {winner}\n")
+    print(f"{'-'*25}\n")
 
     # Save the winning candidate summary to the text file
+    for candidate in candidates:
+        this_candidate_vote_total = election_tracker[candidate][0]
+        this_candidate_percent_vote = election_tracker[candidate][1]
+        print(f"{candidate}: {this_candidate_percent_vote}% ({this_candidate_vote_total})\n",file = txt_file)
+
+    print(f"{'-'*25}\n\n", txt_file)
+    print(f"{'-'*25}\n\nWinner: {winner}{'-'*25}\n", txt_file)
+    print(f"{'-'*25}\n\n", txt_file)
+  
