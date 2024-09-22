@@ -74,9 +74,9 @@ with open(file_to_output, "w") as txt_file:
     print()
 
     # Write the total vote count to the text file
-    print(f"\nElection Results\n\n{'-'*25}\n", file = txt_file)
+    print(f"\nSUMMARY\n --- Election Results ---\n\n{'-'*25}\n", file = txt_file)
     print(f"Total Votes: {total_votes}\n", file = txt_file)
-   
+    print(f"{'-'*25}\n", file = txt_file)
     # Loop through the candidates to determine vote percentages and 
     # identify the winner
     for candidate in candidates:
@@ -105,9 +105,7 @@ with open(file_to_output, "w") as txt_file:
         this_candidate_percent_vote = election_tracker[candidate][1]
         print(f"{candidate}: {this_candidate_percent_vote}% ({this_candidate_vote_total})\n")
     
-    print(f"{'-'*25}\n")
-    print(f"Winner: {winner}\n")
-    print(f"{'-'*25}\n")
+    print(f"{'-'*25}\n\nWinner: {winner}\n\n{'-'*25}\n")
 
     # Save the winning candidate summary to the text file
     for candidate in candidates:
@@ -115,7 +113,6 @@ with open(file_to_output, "w") as txt_file:
         this_candidate_percent_vote = election_tracker[candidate][1]
         print(f"{candidate}: {this_candidate_percent_vote}% ({this_candidate_vote_total})\n",file = txt_file)
 
-    print(f"{'-'*25}\n\n", txt_file)
-    print(f"{'-'*25}\n\nWinner: {winner}{'-'*25}\n", txt_file)
-    print(f"{'-'*25}\n\n", txt_file)
+    print(f"{'-'*25}\n\nWinner: {winner}\n\n{'-'*25}\n", file = txt_file)
+ 
   
