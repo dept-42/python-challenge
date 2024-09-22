@@ -1,13 +1,13 @@
 # -*- coding: UTF-8 -*-
-"""PyPoll Homework Starter File."""
+"""PyPoll.py"""
 
 # Import necessary modules
 import csv
 import os
 
-# Files to load and output (update with correct file paths)
-file_to_load = os.path.join("./Resources", "election_data.csv")  # Input file path
-file_to_output = os.path.join("./Analysis", "election_analysis.txt")  # Output file path
+# Files to load and output 
+file_to_load = os.path.join("./Resources", "election_data.csv")  
+file_to_output = os.path.join("./Analysis", "election_analysis.txt") 
 os.chdir("/Users/wayne.mitchell/Documents/NU/python-challenge/PyPoll")
 print(f"cwd: {os.getcwd()}")
 print()
@@ -20,7 +20,6 @@ total_votes = 0
 candidate_votes = 0
 this_candidate_percent_vote = 0.0
 best_candidate_vote = 0
-winner = ""
 this_candidate_total_vote = 0
 candidates = []
 
@@ -30,8 +29,9 @@ election_tracker = {
     "Diana DeGette" : [this_candidate_total_vote, this_candidate_percent_vote],
     "Raymon Anthony Doane" : [this_candidate_total_vote, this_candidate_percent_vote]
 }
+winner = ""
 
-# function: calculate percentage of vote 
+# function: calculates and returns percentage of vote 
 def calculate_vote_percent(total_votes, candidate_votes):
     percent_vote = round((candidate_votes/ total_votes)*100, 3)
     return percent_vote
@@ -62,6 +62,8 @@ with open(file_to_load) as election_data:
         # If candidate is not in 'election_tracker', add 
         if not candidate_name in election_tracker.keys():
             votes_percent_by_candidate[candidate_name] = 0.0
+            election_tracker[candidate_name][0] = 0
+            election_tracker[candidate_name][0] = 0.0
 
         # Add a vote to the candidate's count
         election_tracker[candidate_name][0] += 1
@@ -77,8 +79,8 @@ with open(file_to_output, "w") as txt_file:
     print(f"\nSUMMARY\n --- Election Results ---\n\n{'-'*25}\n", file = txt_file)
     print(f"Total Votes: {total_votes}\n", file = txt_file)
     print(f"{'-'*25}\n", file = txt_file)
-    # Loop through the candidates to determine vote percentages and 
-    # identify the winner
+
+    # Loop through the candidates to determine vote percentages and the winner
     for candidate in candidates:
 
         # Get the vote count and calculate the percentage
