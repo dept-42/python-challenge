@@ -8,9 +8,6 @@ import os
 # Files to load and output
 file_to_load = os.path.join("./Resources", "budget_data.csv") 
 file_to_output = os.path.join("./Analysis", "budget_analysis.txt") 
-os.chdir("/Users/wayne.mitchell/Documents/NU/python-challenge/PyBank")
-print(f"cwd: {os.getcwd()}")
-print()
 
 # Define variables to track the financial data
 total_months = 0
@@ -62,8 +59,8 @@ with open(file_to_load) as financial_data:
         # monthCount = 1.  For each additional row, inspect month and capture \
         # as 'nextMonth'. If 'nextMonth != currentMonth, increment monthCount \
         # by 1, set currentMonth to nextMonth. In this data, the number of \
-        # non-header rows equals the number of months months, but, that might 
-        # not alwys be true; a four week period would occur twice in some months\
+        # non-header rows equals the number of months, but, that might 
+        # not alwys be true; more than four weeks occur 8in some months\
         # The method here will correctly count NUMBER OF MONTHS even if two \
         # reports are made in a single month
 

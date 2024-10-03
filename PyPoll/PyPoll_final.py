@@ -8,9 +8,6 @@ import os
 # Files to load and output 
 file_to_load = os.path.join("./Resources", "election_data.csv")  
 file_to_output = os.path.join("./Analysis", "election_analysis.txt") 
-os.chdir("/Users/wayne.mitchell/Documents/NU/python-challenge/PyPoll")
-print(f"cwd: {os.getcwd()}")
-print()
 
 # Initialize variables to track the election data
 total_votes = 0  
@@ -69,8 +66,8 @@ with open(file_to_load) as election_data:
         election_tracker[candidate_name][0] += 1
 
 # Open a text file to save the output
-with open(file_to_output, "w") as txt_file:
 
+with open(file_to_output, "w", encoding='utf-8') as txt_file:
     # Print the total vote count (to terminal)
     print(f"\nTotal votes cast: {total_votes}")
     print()
